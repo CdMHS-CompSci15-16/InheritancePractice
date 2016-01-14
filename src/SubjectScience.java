@@ -1,5 +1,5 @@
 
-public class SubjectScience extends Subject {
+public abstract class SubjectScience extends Subject {
 	
 	protected boolean classOnFire;
 	
