@@ -15,6 +15,7 @@ public abstract class SubjectMath extends Subject {
 	public String currentProblem() {
 		return "none";
 	}
+
 	
 	@Override
 	public boolean equals(Object obj) {

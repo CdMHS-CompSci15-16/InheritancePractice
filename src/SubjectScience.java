@@ -13,11 +13,11 @@ public abstract class SubjectScience extends Subject {
 		if (Math.random() < .33) {
 			classOnFire = true;
 		}
-		System.out.println("Class is ");
+		System.out.println(isClassOnFire());
 	}
 	
-	public boolean isClassOnFire() {
-		return classOnFire;
+	public String isClassOnFire() {
+		return "Class is " + (classOnFire ? "" : "not ") + "on fire."; 
 	}
 	
 	@Override

@@ -68,15 +68,22 @@ public abstract class Subject {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder(getClass().getName()).append('{');
-		for (Field f : getClass().getFields()) {
-			try {
-				sb.append(f.getName()).append(" = ").append(f.get(this)).append(";");
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				System.err.println("err in " + getClass().getName() + "#toString()");
-				e.printStackTrace();
-			}
-		}
-		return sb.append('}').toString();
+		Class<?> clazz = getClass();
+		do {
+			for (Field f : clazz.getDeclaredFields()) {
+				boolean access = f.isAccessible();
+				f.setAccessible(true);
+				try {
+					sb.append(f.getName()).append(" = ").append(f.get(this)).append("; ");
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					System.err.println("err in " + getClass().getName() + "#toString()");
+					e.printStackTrace();
+				}
+				f.setAccessible(access);
+			} 
+			clazz = clazz.getSuperclass();
+		} while (clazz != Object.class && clazz != null);
+		return sb.deleteCharAt(sb.length() - 1).deleteCharAt(sb.length() - 1).append('}').toString();
 	}
 	
 	@Override
